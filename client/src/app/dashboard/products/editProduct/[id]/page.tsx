@@ -7,14 +7,14 @@ import React, { useState } from 'react'
 const page = () => {
   
   return (
-    <Dashboard >
+    <Dashboard className='' >
         
         
       
         
         
         
-        <div className={`overflow-hidden flex flex-col m-4 border border-dashboard-900 rounded-md bg-dashboard-900`}>
+        <div className={`flex flex-col m-auto border border-dashboard-900 rounded-md bg-dashboard-900`}>
             
                 
               <EditProductForm />

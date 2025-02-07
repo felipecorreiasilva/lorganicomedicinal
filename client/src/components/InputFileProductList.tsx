@@ -1,14 +1,26 @@
-import React, { ChangeEvent, useCallback } from 'react'
+import React, { ChangeEvent, useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { MdCloudUpload } from 'react-icons/md'
 
-interface InputProps {
-    handleFileChange: (e: ChangeEvent<HTMLInputElement>)=> void,
-    imageList: File[]|null,
-    setImageList: (value:File[]) => void
-}
+const InputFileProductList = () => {
+    const [imageList, setImageList] = useState<File[] | null>(null);
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+            e.preventDefault()
+    
+            switch(e.target.name){
+    
+                case 'imageList':
+                    if (e.target.files){
+                        console.log('e.atatab', e.target.files)
+                        setImageList([...e.target.files])
+                        
+                    }
+                    break;
+                
+            }
+    
+        }
 
-const InputFileProductList = ({handleFileChange,imageList,setImageList}:InputProps) => {
     const onDrop = useCallback((files:File[])=>{
                 setImageList(files)
 
@@ -23,7 +35,7 @@ const InputFileProductList = ({handleFileChange,imageList,setImageList}:InputPro
 
   return (
     <div {...getRootProps()} className=''>
-        <h2 className='my-4 text-sm text-center'>Imagem do Produto</h2>
+        <h2 className='my-4 text-sm text-center'>Lista de Imagens</h2>
         <input
         {...getInputProps}
         id='imageList'

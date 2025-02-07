@@ -1,4 +1,5 @@
 'use client'
+import Dashboard from '@/components/Dashboard'
 import SidebarDashboard from '@/components/SidebarDashboard'
 import { Settings } from 'lucide-react'
 import Link from 'next/link'
@@ -10,13 +11,12 @@ import { MdSpaceDashboard } from 'react-icons/md'
 
 const page = () => {
   return (
-    <div className='flex bg-[#050505] h-screen'>
+    <Dashboard className='overflow-x-auto scrollbar-none'>
         
-        <SidebarDashboard />
-        <div className="bg-[#0d0c0c]"></div>
+        <div className=""></div>
 
 
-    </div>
+    </Dashboard>
   )
 }
 

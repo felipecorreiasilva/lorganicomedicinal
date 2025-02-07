@@ -44,54 +44,64 @@ const TableOrders = () => {
         const fetchData = async () => {
             const _urlCob = 'http://localhost:3001/ordersManager/v2/cob'
             const _urlOrdersDB = 'http://localhost:3001/ordersManager/'
+            
             const resultCob = await axios.get(_urlCob)
             const cobData = resultCob.data.cobs
             const resultOrdersDB = await axios.get(_urlOrdersDB)
-            const UpdateOrders:OrdersTypes[] = resultOrdersDB.data.map((order:OrdersTypes,i:number)=>{
-
-                const newObj = {
-                    id: order.id,
-                    adresses: order.adresses,
-                    cep: order.cep,
-                    city: order.city,
-                    cityComplement: order.cityComplement,
-                    country: order.country,
-                    deliveryMethod: order.deliveryMethod,
-                    emailContact: order.emailContact,
-                    firstname: order.firstname,
-                    lastname: order.lastname,
-                    houseNumber: order.houseNumber,
-                    cpf: order.cpf,
-                    phone: order.phone,
-                    neighborhood: order.neighborhood,
-                    paymentMethod: order.paymentMethod,
-                    pixCopiaECola: order.pixCopiaECola,
-                    txid: order.txid,
-                    uf: order.uf,
-                    products: order.products,
-                    status: cobData[i].status,
-                    shipping: order.shipping,
-                    price: order.price
-                    
-                }
-                
-                return newObj
-
-            })
-
-            UpdateOrders.forEach((order)=>{
-
-                const _urlOrdersUpdate = 'http://localhost:3001/ordersUpdate/'+order.id
-                axios.put(_urlOrdersUpdate,order)
-
-            })
-
+            
             
 
+            const UpdateOrders:OrdersTypes[] = resultOrdersDB.data.map(async(order:OrdersTypes,i:number)=>{
+
+                console.log('order.freteid: ', order.freteId)
+                const _urlFrete = `http://localhost:3001/frete/getLabelById/${order.freteId}`
+                const freteResult = (await axios.get(_urlFrete)).data
+                const freteStatus = (freteResult != '' ? freteResult.status : 'CART')
+                console.log('freteResult: ',freteResult)
+                const newObj = {
+                        id: order.id,
+                        adresses: order.adresses,
+                        cep: order.cep,
+                        city: order.city,
+                        cityComplement: order.cityComplement,
+                        country: order.country,
+                        deliveryMethod: order.deliveryMethod,
+                        emailContact: order.emailContact,
+                        firstname: order.firstname,
+                        lastname: order.lastname,
+                        houseNumber: order.houseNumber,
+                        cpf: order.cpf,
+                        phone: order.phone,
+                        neighborhood: order.neighborhood,
+                        paymentMethod: order.paymentMethod,
+                        pixCopiaECola: order.pixCopiaECola,
+                        txid: order.txid,
+                        uf: order.uf,
+                        products: order.products,
+                        status: cobData[i].status,
+                        freteId: order.freteId,
+                        totalPrice: order.totalPrice,
+                        freteStatus
+                    }
+                    
+                    return newObj
+                
+            })
+
+            UpdateOrders.forEach(async(order)=>{
+                const orderPromise = await order
+                console.log('sadaorder:', orderPromise)
+                const _urlOrdersUpdate = 'http://localhost:3001/ordersUpdate/'+orderPromise.id
+                axios.put(_urlOrdersUpdate,orderPromise)
+
+            })
+
+            const OrdersPromiseAll = await Promise.all(UpdateOrders)
+            console.log('OrdersPromiseAll: ', OrdersPromiseAll)
             console.log('resultCob.data: ', resultCob.data)
             console.log('resultOrdersDB: ', resultOrdersDB.data)
             console.log('UpdateOrders: ', UpdateOrders)
-            setDataOrders(UpdateOrders)
+            setDataOrders(OrdersPromiseAll)
         }
         fetchData();
       }, [])
@@ -101,29 +111,29 @@ const TableOrders = () => {
     {dataOrders && (
         <div className="flex flex-col w-full overflow-x-auto scrollbar-none px-4">
                 
-        <div className='p-4 my-16 bg-dashboard-800 border border-dashboard-800 rounded-md'>
-                        
-            <div className="flex justify-between gap-x-4 w-full">
+        <div className='p-4 my-16 bg-dashboard-800 border sm:w-full w-[672px] border-dashboard-800 rounded-md'>
+                                        
+                            <div className="flex justify-between gap-x-4 w-full">
+                            
+                            <div className="flex bg-dashboard-600 p-2.5 items-center rounded-md w-full">
+                            <BsSearch className={`text-white text-lg block float-left cursor-pointer mr-2 gap-x-8`}/>
+                            <input 
+                            className='w-full bg-transparent focus:outline-none'
+                            type="search" />
+                            </div>
             
-            <div className="flex sm:w-full w-[800px] bg-dashboard-600 p-2.5 items-center rounded-md">
-            <BsSearch className={`text-white text-lg block float-left cursor-pointer mr-2 gap-x-8`}/>
-            <input 
-            className='w-full bg-transparent focus:outline-none'
-            type="search" />
-            </div>
-
-            <button className='bg-primary-900 px-16 border border-primary-900 rounded-md'>
-                <div className="flex gap-x-2 items-center">
-                <HiOutlineSearchCircle className=''/>
-                <p>Pesquisar</p>
-                </div>
-                
-            </button>
-
-            </div>
+                            <button className='bg-primary-900 px-16 border border-primary-900 rounded-md'>
+                                <div className="flex gap-x-2 items-center">
+                                <HiOutlineSearchCircle className=''/>
+                                <p>Pesquisar</p>
+                                </div>
+                                
+                            </button>
+            
+                            </div>
+                                        
+                                        
                         
-                        
-        
         </div>
         
 
@@ -150,8 +160,8 @@ const TableOrders = () => {
             <td className='px-[15px] py-[12px]'>{order.cpf}</td>
             <td className='px-[15px] py-[12px]'>{order.phone}</td>
             <td className='px-[15px] py-[12px]'>{order.status}</td>
-            <td className='px-[15px] py-[12px]'>{order.shipping}</td>
-            <td className='px-[15px] py-[12px]'>{order.price}</td>
+            <td className='px-[15px] py-[12px] uppercase'>{order.freteStatus}</td>
+            <td className='px-[15px] py-[12px]'>{order.totalPrice}</td>
             <td className='px-[15px] py-[12px] cursor-pointer'><Link href={`/dashboard/orders/details/${order.id}`}><LuPackage className='ml-5 text-cyan-600' size={20}/></Link></td>
             
             
@@ -179,7 +189,7 @@ const TableOrders = () => {
                 {numbers.map((n,i)=>(
                 <li 
                 onClick={()=> changeCPage(n)}
-                className={`rounded-sm px-4 mx-[2px] ${currentPage === n ? 'bg-dashboard-800 ':''} border border-dashboard-800`}
+                className={`cursor-pointer rounded-sm px-4 mx-[2px] ${currentPage === n ? 'bg-dashboard-800 ':''} border border-dashboard-800`}
                 key={i}>
                     <a 
                     

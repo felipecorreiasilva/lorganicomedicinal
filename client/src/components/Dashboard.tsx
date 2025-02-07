@@ -13,7 +13,7 @@ const Dashboard = ({children,className}:DashboardProps) => {
         
         <SidebarDashboard/>
         
-        <div className="flex flex-col m-4 border border-[#0d0c0c] rounded-md w-full bg-[#0d0c0c] ">
+        <div className="overflow-auto sm:overflow-hidden flex flex-col m-2 sm:m-4 p-2 border border-[#0d0c0c] rounded-md w-full bg-[#0d0c0c] ">
 
             
             {children}

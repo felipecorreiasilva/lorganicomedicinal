@@ -106,11 +106,16 @@ const PaymentMethodRequest = () => {
                 switch (paymentMethod) {
                     case 'pix':
                         const result = await axios.post('http://localhost:3001/newOrder/pix', paymentData)
+                        const resultFrete = await axios.post('http://localhost:3001/frete/addFreteCart', paymentData)
+                        console.log('resultFrete: ', resultFrete.data)
+
                         // const resultc = await axios.get('http://localhost:3001/newOrder/v2/cob')
                         // console.log('dataC: ', resultc.data)
                         console.log('data: ', result.data)
                         const locId = result?.data?.cobranca?.loc?.id
+                        
                         const newOrderData = {
+                            
                             id: locId,
                             txid: result.data.cobranca.txid,
                             pixCopiaECola: result.data.cobranca.pixCopiaECola,
@@ -118,14 +123,19 @@ const PaymentMethodRequest = () => {
                             ...paymentData,
                             cep: parseInt(cep),
                             country: 'Brasil',
-                            
+                            status: result.data.cobranca.status,
+                            freteId: resultFrete.data.id,
+                            freteStatus: resultFrete.data.status
                         }
                         
+                        console.log('newOrderData', newOrderData)
+                        
                         const createNewOrder = await axios.post('http://localhost:3001/createNewOrder', newOrderData)
-                        console.log('createNewOrder: ', createNewOrder)
+
+                        console.log('createNewOrder: ', createNewOrder.data)
                         
                         // clearCart()
-                        router.push(`/newOrder/v2/loc/${locId}/pixQrCode`);
+                        // router.push(`/newOrder/v2/loc/${locId}/pixQrCode`);
                         break;
 
                     case 'credit_card':

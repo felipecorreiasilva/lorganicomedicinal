@@ -95,7 +95,7 @@ const page = () => {
                                     <div className="mt-[24px] text-xs justify-between">
                                         
                                         <div className="flex relative">
-                                        <Image className="w-auto h-auto border-[1px] p-[4px]" src={product.image} alt={product.name} width={35} height={35}/>
+                                        <img className="w-12 h-16 border-[1px] p-0.5" src={product.image} alt={product.name}/>
                                         <p className='mt-2 ml-4'>{product.name}</p>
                                         <button className="absolute w-8 h-[40px] cursor-pointer -right-[12px] -top-[4px]" onClick={() => removeFromCart(i)}>
                                             <RiDeleteBin6Line />

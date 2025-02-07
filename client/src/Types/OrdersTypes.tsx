@@ -1,3 +1,5 @@
+import { ProductsTypes } from "./ProductsTypes"
+
 export type OrdersTypes = {
     id: number,
     adresses: string,
@@ -17,8 +19,10 @@ export type OrdersTypes = {
     pixCopiaECola: string,
     txid: string,
     uf: string,
-    products: string,
+    products: ProductsTypes[],
     status: string,
-    shipping: string,
-    price: number
+    totalPrice: number,
+    freteId: string,
+    freteStatus: string,
+    
 }

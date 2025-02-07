@@ -4,11 +4,12 @@ const { db } = require('../db');
 
 router.post('/', async(req,res)=>{
 
-    const q = "INSERT INTO `orders` (`id` ,`adresses`, `cep`,  `city`, `cityComplement`, `country`, `deliveryMethod`, `emailContact`, `firstname`, `lastname`,  `houseNumber`, `cpf`, `phone`, `neighborhood`, `paymentMethod`, `pixCopiaECola`, `txid`, `uf`, `products`) VALUES (?)"
+    const q = "INSERT INTO `orders` (`id` ,`adresses`, `cep`,  `city`, `cityComplement`, `country`, `deliveryMethod`, `emailContact`, `firstname`, `lastname`,  `houseNumber`, `cpf`, `phone`, `neighborhood`, `paymentMethod`, `pixCopiaECola`, `txid`, `uf`, `products`, `status`, `totalPrice`, `freteId`, `freteStatus` ) VALUES (?)"
     
     console.log('req.body: ', req.body)
 
     const values = [
+        
         req.body.id,
         req.body.adresses,
         req.body.cep,
@@ -28,9 +29,10 @@ router.post('/', async(req,res)=>{
         req.body.txid,
         req.body.uf,
         JSON.stringify(req.body.products),
-        '',
-        req.body.shipping,
-        req.body.price,
+        req.body.status,
+        req.body.totalPrice,
+        req.body.freteId,
+        req.body.freteStatus
 
     ]
 

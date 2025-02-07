@@ -7,7 +7,7 @@ router.put('/:id', async(req,res)=>{
     const { id } = req.params;
     const qSql = ('UPDATE orders SET `adresses` = ?, `cep` = ?, `city` = ?, `cityComplement` = ?, `country` = ?, `deliveryMethod` = ?,'
         +' `emailContact` = ?, `firstname` = ?, `lastname` = ?, `houseNumber` = ?, `cpf` = ?, `phone` = ?, `neighborhood` = ?, `paymentMethod` = ?,'
-        +'`pixCopiaECola` = ?, `txid` = ?, `uf` = ?, `products` = ?, `status` = ?, `shipping` = ?')
+        +'`pixCopiaECola` = ?, `txid` = ?, `uf` = ?, `products` = ?, `status` = ?, `freteId` = ?, `freteStatus` = ? ')
     
     const values = [
         req.body.adresses,
@@ -29,7 +29,8 @@ router.put('/:id', async(req,res)=>{
         req.body.uf,
         req.body.products,
         req.body.status,
-        req.body.shipping,
+        req.body.freteId,
+        req.body.freteStatus
     ]
 
     db.query(qSql,[...values,id], (err, data) => {

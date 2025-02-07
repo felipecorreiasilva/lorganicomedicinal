@@ -1,15 +1,29 @@
-import React, { ChangeEvent, useCallback } from 'react'
+import React, { ChangeEvent, useCallback, useState } from 'react'
 import { DropzoneState, useDropzone } from 'react-dropzone'
 import { MdCloudUpload } from 'react-icons/md'
 
-interface InputProps {
-    handleFileChange: (e: ChangeEvent<HTMLInputElement>)=> void,
-    image: File|null,
-    setImage: (value:File) => void
-}
 
-const InputFileProduct = ({handleFileChange,image,setImage}:InputProps) => {
+
+const InputFileProduct = () => {
+    const [image, setImage] = useState<File | null>(null);
+
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+            e.preventDefault()
     
+            switch(e.target.name){
+    
+                case 'image':
+                    if (e.target.files){
+                        console.log('e.atatab', e.target.files[0])
+                        setImage(e.target.files[0])
+                        
+                    }
+                    break;
+                
+            }
+    
+        }
+
     const onDrop = useCallback((files:File[])=>{
             console.log('aaa',files)
             setImage(files[0])

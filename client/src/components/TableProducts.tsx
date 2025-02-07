@@ -94,11 +94,11 @@ const TableProducts = () => {
     {dataProducts && (
             <div className="flex flex-col w-full overflow-x-auto scrollbar-none px-4">
                 
-                <div className='p-4 my-16 bg-dashboard-800 border border-dashboard-800 rounded-md'>
+                <div className='p-4 my-16 bg-dashboard-800 border sm:w-full w-[832px] border-dashboard-800 rounded-md'>
                                 
                     <div className="flex justify-between gap-x-4 w-full">
                     
-                    <div className="flex sm:w-full w-[800px] bg-dashboard-600 p-2.5 items-center rounded-md">
+                    <div className="flex bg-dashboard-600 p-2.5 items-center rounded-md w-full">
                     <BsSearch className={`text-white text-lg block float-left cursor-pointer mr-2 gap-x-8`}/>
                     <input 
                     className='w-full bg-transparent focus:outline-none'
@@ -209,7 +209,7 @@ const TableProducts = () => {
                         {numbers.map((n,i)=>(
                         <li 
                         onClick={()=> changeCPage(n)}
-                        className={`rounded-sm px-4 mx-[2px] ${currentPage === n ? 'bg-dashboard-800 ':''} border border-dashboard-800`}
+                        className={`cursor-pointer rounded-sm px-4 mx-[2px] ${currentPage === n ? 'bg-dashboard-800 ':''} border border-dashboard-800`}
                         key={i}>
                             <a 
                             

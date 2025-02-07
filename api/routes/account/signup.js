@@ -7,21 +7,22 @@ const {hash} = require('bcrypt');
 router.post('/', async(req, res) => {
 
     const q = "SELECT * FROM users WHERE email = ?"
-    const qSql = "INSERT INTO `users` (`firstname` ,`lastname`, `password`,  `email`, `phone`, `birth`, `verified`) VALUES (?)"
+    const qSql = "INSERT INTO `users` (`username` , `password`,  `email`, `phone`, `birth`, `verified`, `isAdmin`) VALUES (?)"
 
-    const {firstname,lastname,password,email,phone,birth} = req.body
+    const {username,password,email,phone,birth} = req.body
     const verified = false
+    const isAdmin = false
     const saltRounds = 10;
     const hashedPassword = await hash(password, saltRounds)
 
     const values = [
-        firstname,
-        lastname,
+        username,
         hashedPassword,
         email,
         phone,
         birth,
-        verified
+        verified,
+        isAdmin
     ]
 
     db.query(q, [email], (err, dataSelect) => {

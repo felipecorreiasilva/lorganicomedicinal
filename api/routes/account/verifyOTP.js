@@ -34,7 +34,6 @@ router.post('/:id', async(req, res) => {
                     // user otp record has expired
                     db.query(qDelete, [req.params.id], (err, dataDelete) =>{
                         if (err) return res.json("Error");
-                        console.log('af',expiresAt, 'uf', Date.now())
                         return res.status(200).json({msgError: 'Código de verificação foi expirado, porfavor solicite outro novamente', dataDelete})
                     })
 

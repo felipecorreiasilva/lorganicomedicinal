@@ -13,6 +13,17 @@ router.get('/', async(req,res)=>{
 
 })
 
+router.get('/:id', async(req,res)=>{
+    const {id} = req.params
+    const qSql = 'SELECT * FROM orders WHERE `id` = ?'
+
+    db.query(qSql, [id], (err, result) => {
+        if (err) return res.json("Error")
+        return res.json(result)
+    })
+
+})
+
 router.get('/v2/loc/:id/pixQrCode', async(req, res) => {
 
     const token = await getToken();
@@ -40,7 +51,6 @@ router.get('/v2/cob', async(req, res) => {
     const token = await getToken();
     const accessToken = token.access_token
     const _getAllCob = await getAllCob(accessToken)
-    console.log('_getAllCob: ', _getAllCob)
     return res.send(_getAllCob)
 
 })
@@ -48,7 +58,6 @@ router.get('/v2/cob', async(req, res) => {
 router.get('/v2/cob/:id', async(req, res) => {
 
     const cobId = req.params.id
-    console.log('cobId: ', cobId)
     const token = await getToken();
     const accessToken = token.access_token
     const _getCobById = await getCobById(accessToken,cobId)

@@ -33,7 +33,7 @@ const page = () => {
                     <CardContent className='relative'>
                         <CardDescription className='text-[10px] absolute left-2 py-2 opacity-80'>{product.name}</CardDescription>
                         <CardDescription className='text-[10px] text-cyan-600 absolute left-2 top-8 opacity-80'>{product.discount}%<br/>{product.discountDesc}</CardDescription>
-                        <CardDescription className='text-black font-bold absolute left-2 top-[80px] opacity-80'>R$ {product.price} <span className='ml-1 font-medium opacity-40 line-through'>R$ {product.oldPrice}</span></CardDescription>
+                        <CardDescription className='text-black font-bold absolute left-2 top-[80px] opacity-80'>R$ {String(product.price).replace('.',',')} <span className='ml-1 font-medium opacity-40 line-through'>R$ {product.oldPrice}</span></CardDescription>
                     </CardContent>
                     <CardFooter>
 

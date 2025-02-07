@@ -80,7 +80,7 @@ const page = () => {
 
       }
 
-      const _url = 'http://localhost:3001/frete'
+      const _url = 'http://localhost:3001/frete/calcFrete'
       const result = (await axios.post(_url,args)).data
       console.log(result)
       setFretes(result)

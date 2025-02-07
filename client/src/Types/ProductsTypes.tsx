@@ -1,3 +1,5 @@
+import { BoxProductsTypes } from "./BoxProductsTypes"
+
 export type ProductsTypes = {
     id: number,
     name: string,
@@ -5,12 +7,14 @@ export type ProductsTypes = {
     country: string,
     image: string,
     price: number,
-    amountProduct: number,
     height: number,
     width: number, 
     _length: number,
     weight: number,
     discount: number,
     discountDesc: string,
-    oldPrice: number
+    oldPrice: number,
+    amountProduct: number,
+    imageList: string,
+    boxProducts: BoxProductsTypes[]
 }

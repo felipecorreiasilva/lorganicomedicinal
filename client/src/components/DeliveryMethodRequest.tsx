@@ -69,7 +69,7 @@ const DeliveryMethodRequest = () => {
                     cep: unmaskCep,
                 }
 
-                const _url = 'http://localhost:3001/frete'
+                const _url = 'http://localhost:3001/frete/calcFrete'
                 const result = await (await axios.post(_url,args)).data
                 
                 setFretes(result)

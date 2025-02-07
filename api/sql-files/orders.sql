@@ -1,0 +1,26 @@
+CREATE TABLE orders (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    adresses VARCHAR(100) NOT NULL,
+    cep INT NOT NULL,
+    city VARCHAR(100) NOT NULL,
+    cityComplement VARCHAR(100),
+    country VARCHAR(100) NOT NULL,
+    deliveryMethod VARCHAR(100) NOT NULL,
+    emailContact VARCHAR(100) NOT NULL,
+    firstname VARCHAR(100) NOT NULL,
+    lastname VARCHAR(100) NOT NULL,
+    houseNumber INT NOT NULL,
+    cpf VARCHAR(11) NOT NULL,
+    phone VARCHAR(11) NOT NULL,
+    neighborhood VARCHAR(100) NOT NULL,
+    paymentMethod VARCHAR(100) NOT NULL,
+    pixCopiaECola VARCHAR(256) NOT NULL,
+    txid VARCHAR(45) NOT NULL,
+    uf VARCHAR(45) NOT NULL,
+    products JSON NOT NULL,
+    status VARCHAR(45) NOT NULL,
+    totalPrice DECIMAL(10,2) NOT NULL,
+    freteId DECIMAL(10,2) NOT NULL,
+    freteStatus VARCHAR(45) NOT NULL
+);
+

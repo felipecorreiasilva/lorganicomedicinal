@@ -88,7 +88,7 @@ const CartModal: React.FC = () => {
                     <CardContent className="">
                         
                         <div className="relative flex pt-[24px]">
-                        <Image className="w-auto h-auto" src={product?.image} alt={product?.name} width={35} height={35}/>
+                        <img className="border-[1px] p-0.5 w-12 h-16" src={product?.image} alt={product?.name}/>
                         <div className="pl-4">
                             <h3 className="mt-[4px] text-center text-xs text-gray-700 font-bold">{product?.name}</h3>
                             <p className="text-cyan-600 mt-6 text-xs flex flex-col">{product?.discount}% {product?.discountDesc}</p>

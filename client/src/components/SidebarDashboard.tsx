@@ -50,7 +50,7 @@ const SidebarDashboard = () => {
         className={`h-8 w-8 bg-[#050505] rounded-full absolute -right-4 top-12 
         border border-[#0d0c0c] cursor-pointer ${!open && "rotate-180"}`}/>
 
-    <div className={`bg-[#0d0c0c] h-screen p-5 pt-8 ${open ? 'w-72':'w-24'} overflow-y-scroll scrollbar-none`}>
+    <div className={`bg-[#0d0c0c] h-full p-5 pt-8 ${open ? 'w-72':'w-24'} overflow-y-scroll scrollbar-none`}>
         
         <div className="flex">
 
